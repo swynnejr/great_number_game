@@ -8,7 +8,7 @@ app.secret_key = 'the game is secure af'
 @app.route('/')
 def numberGuess():
     if not 'secret' in session:
-        session['secret'] = random.randint(1,1000000)
+        session['secret'] = random.randint(1,100)
     return render_template("index.html")
 
 @app.route('/guess', methods = ['POST'])
@@ -20,6 +20,11 @@ def guessChecker():
     else:
         session['result'] = "You win!"
     return redirect ('/')
+
+@app.route('/clear')
+def clearSecret():
+    session.clear()
+    return redirect('/')
 
 
 if __name__ == "__main__":
